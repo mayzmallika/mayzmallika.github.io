@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Quicksand:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+h1,
+h3,
+p,
+small {
+  font-family: 'Quicksand', sans-serif;
+}
+
+h4 {
+  font-family: 'Dancing Script', sans-serif;
+}
+
+.landlogo {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.landlogo .logo {
+  font-family: 'Pacifico', cursive;
+  font-size: 72px;
+}
+
+.landscape {
+  padding: 50px;
+  padding-bottom: 120px;
+}
+
+@media screen and (max-device-width: 926px) and (orientation: landscape) {
+  .landlogo {
+    text-align: center;
+    float: right;
+    margin-top: 0px;
+  }
+
+  .landscape {
+    padding: 50px;
+  }
+}
