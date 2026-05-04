@@ -2,113 +2,473 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>hello, m.</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <script src="https://kit.fontawesome.com/7f4e000fc5.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="./style.css">
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NPBCE60TKF"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-NPBCE60TKF');
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>MALLIKA CH.</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+      background: #fff;
+      color: #111;
+      letter-spacing: -0.01em;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* LAYOUT */
+    .wrapper {
+      padding: 80px 120px;
+    }
+
+    /* NAV */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #777;
+    }
+
+    .nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: inherit;
+      transition: .3s;
+    }
+
+    .nav a:hover {
+      opacity: .5;
+    }
+
+    /* HERO */
+    .hero {
+      margin-top: 140px;
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      align-items: end;
+    }
+
+    /* HERO ANIMATION */
+    .hero-title span {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(60px) scale(.95);
+      filter: blur(8px);
+    }
+
+    .hero-title span:nth-child(1) {
+      animation: revealHero .9s cubic-bezier(.22, 1, .36, 1) forwards;
+      animation-delay: .2s;
+    }
+
+    .hero-title span:nth-child(3) {
+      animation: revealHero .9s cubic-bezier(.22, 1, .36, 1) forwards;
+      animation-delay: .5s;
+    }
+
+    .hero-title span:nth-child(5) {
+      animation: revealHero .9s cubic-bezier(.22, 1, .36, 1) forwards;
+      animation-delay: .8s;
+    }
+
+    .hero-title {
+      font-size: clamp(80px, 12vw, 140px);
+      line-height: .85;
+      letter-spacing: -3px;
+    }
+
+    .hero .desc {
+      font-size: 14px;
+      color: #666;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 1.2s;
+    }
+
+    /* BIG TEXT */
+    .big-section {
+      margin-top: 220px;
+    }
+
+    .big-text {
+      font-size: 48px;
+      line-height: 1.1;
+      max-width: 900px;
+    }
+
+    /* IMPACT */
+    .impact {
+      margin-top: 160px;
+    }
+
+    .impact-item {
+      font-size: 28px;
+      margin-bottom: 20px;
+      transition: .3s;
+    }
+
+    .impact-item:hover {
+      transform: translateX(10px);
+    }
+
+    /* WORK GRID */
+    .work-grid {
+      margin-top: 220px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 60px;
+    }
+
+    /* WORK CARD */
+    .work-card {
+      position: relative;
+      padding-left: 20px;
+      cursor: pointer;
+      transition: .4s ease;
+    }
+
+    /* LEFT LINE */
+    .work-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2px;
+      height: 0%;
+      background: #111;
+      transition: height .6s ease;
+    }
+
+    /* reveal line */
+    .work-card.reveal.active::before {
+      height: 100%;
+    }
+
+    /* stagger */
+    .work-card:nth-child(1).reveal.active::before {
+      transition-delay: .1s;
+    }
+
+    .work-card:nth-child(2).reveal.active::before {
+      transition-delay: .2s;
+    }
+
+    .work-card:nth-child(3).reveal.active::before {
+      transition-delay: .3s;
+    }
+
+    /* TITLE */
+    .work-title {
+      font-size: 42px;
+      line-height: 1.2;
+      letter-spacing: -1px;
+    }
+
+    /* META */
+    .work-meta {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    /* HOVER */
+    .work-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .work-card:hover .work-title {
+      transform: translateX(6px);
+    }
+
+    .work-card:hover::before {
+      width: 3px;
+    }
+
+    /* ===== EXPAND ===== */
+
+    .work-detail {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: all .5s ease;
+    }
+
+    .work-card.active-expand .work-detail {
+      max-height: 500px;
+      opacity: 1;
+      transform: translateY(0);
+      margin-top: 20px;
+    }
+
+    /* DETAIL */
+    .detail-desc {
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: #333;
+    }
+
+    .detail-list div {
+      margin-bottom: 6px;
+      font-size: 15px;
+    }
+
+    .detail-tech {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    /* ABOUT */
+    .about {
+      margin-top: 200px;
+    }
+
+    .about p {
+      font-size: 28px;
+      max-width: 800px;
+    }
+
+    /* TECH */
+    .tech {
+      margin-top: 120px;
+      color: #777;
+    }
+
+    /* CONTACT */
+    .contact {
+      margin-top: 200px;
+    }
+
+    .contact h2 {
+      font-size: 48px;
+    }
+
+    .contact p {
+      margin-top: 10px;
+      color: #666;
+    }
+
+    /* REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: .7s;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ANIMATION */
+    @keyframes revealHero {
+      0% {
+        opacity: 0;
+        transform: translateY(60px) scale(.95);
+        filter: blur(8px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* RESPONSIVE */
+    @media(max-width:900px) {
+      .wrapper {
+        padding: 40px 20px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .hero-title {
+        font-size: 64px;
+      }
+
+      .work-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .big-text {
+        font-size: 28px;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <div class="container min-vh-100 d-flex flex-column justify-content-center align-items-center">
-    <div class="row g-4">
-      <div class="col-lg-3 col-md-6 d-flex flex-column justify-content-center fade-in">
-        <h1><strong>MALLIKA</strong></h1>
-        <h1><strong>CHUMCHINDA</strong></h1>
-        <h4>Software Developer</h4>
-        <i class="h2 fa-solid fa-arrow-right"></i>
-      </div>
 
-      <div class="col-lg-3 col-md-6 fade-in">
-        <img src="assets/img/profile.jpg" alt="" />
-      </div>
+  <div class="wrapper">
 
-      <div class="col-lg-6 fade-in d-flex flex-wrap">
-        <div class="col-lg-6 col-12">
-          <div class="bg-light-gray p-4">
-            <h5><strong>About Me</strong></h5>
-            <p class="mb-2">I am a skilled software developer with over 8 years of experience in both front-end and
-              back-end web development.
-            </p>
-          </div>
-        </div>
-        <div class="col-lg-6 col-12">
-          <div class="p-4 text-muted">
-            <p> Throughout my career, I have worked on a variety of web applications,
-              demonstrating strong problem-solving skills, adaptability, and a passion for building efficient,
-              user-friendly solutions. I thrive in collaborative environments but am equally comfortable managing
-              projects independently.
-            </p>
-          </div>
-        </div>
-        <div class="col-lg-6 col-12">
-          <div class="p-4 text-muted">
-            <small>
-              <i class="fa-regular fa-star"></i> TypeScript / JavaScript
-              <br><i class="fa-regular fa-star"></i> HTML / CSS / SCSS
-              <br><i class="fa-regular fa-star"></i> VueJS / NextJS / Laravel
-              <br><i class="fa-regular fa-star"></i> MongoDB / MySQL
-              <br><i class="fa-regular fa-star"></i> Google IMA / Google Cast SDK
-              <br><i class="fa-regular fa-star"></i> VideoJS
-              <br><i class="fa-regular fa-star"></i> Line API
-            </small>
-          </div>
-        </div>
-        <div class="col-lg-6 col-12">
-          <div class="bg-light-blue p-4">
-            <h5><strong>Contact Me</strong></h5>
-            <p>You can reach out to me via email or LinkedIn for any inquiries or collaborations:</p>
-            <hr>
-            <a href="https://www.linkedin.com/in/mayzmallika" class="text-decoration-none text-black">
-              <i class="fa-brands fa-linkedin-in"></i>
-              <small>
-                linkedin.com/in/mayzmallika
-              </small>
-            </a>
-            <br>
-            <a href="mailto:mayzmallika@gmail.com" target="_blank" class="text-decoration-none text-black">
-              <i class="fa-regular fa-envelope-open"></i>
-              <small>
-                mayzmallika@gmail.com
-              </small>
-            </a>
-          </div>
-        </div>
+    <!-- NAV -->
+    <div class="nav">
+      <div>MALLIKA CH.</div>
+      <div>
+        <a href="#work">WORK</a>
+        <a href="#about">ABOUT</a>
+        <a href="#contact">CONTACT</a>
       </div>
     </div>
+
+    <!-- HERO -->
+    <div class="hero">
+      <h1 class="hero-title">
+        <span>Building</span><br>
+        <span>Scalable</span><br>
+        <span>Platforms</span>
+      </h1>
+
+      <div class="desc">
+        Software Engineer building systems that drive real business impact.
+      </div>
+    </div>
+
+    <!-- WHAT I DO -->
+    <div class="big-section reveal">
+      <p class="big-text">
+        I design and develop full-stack systems —
+        from scalable backend services to modern web platforms.
+      </p>
+    </div>
+
+    <!-- IMPACT -->
+    <div class="impact">
+      <div class="impact-item reveal">Built video platforms supporting analytics, ads, and multi-device experiences
+      </div>
+      <div class="impact-item reveal">Developed POS & CRM systems used in real-world business operations</div>
+      <div class="impact-item reveal">Improved performance, scalability, and system reliability</div>
+      <div class="impact-item reveal">Delivered technical solutions aligned with business goals</div>
+    </div>
+
+    <!-- WORK -->
+    <div id="work" class="work-grid">
+
+      <div class="work-card reveal" onclick="toggleDetail(this)">
+        <div class="work-title">Video<br>Platform<br>System</div>
+        <div class="work-meta">Streaming / Ads / Analytics</div>
+
+        <div class="work-detail">
+          <p class="detail-desc">A scalable video platform supporting ads, analytics, and multi-device playback.</p>
+          <div class="detail-list">
+            <div>– Built reusable video player</div>
+            <div>– Developed backend services</div>
+            <div>– Optimized performance</div>
+          </div>
+          <div class="detail-tech">TypeScript • Node.js • AWS</div>
+        </div>
+      </div>
+
+      <div class="work-card reveal" onclick="toggleDetail(this)">
+        <div class="work-title">POS<br>CRM<br>Ecosystem</div>
+        <div class="work-meta">Retail / Customer Data</div>
+
+        <div class="work-detail">
+          <p class="detail-desc">A digital ecosystem for retail operations and customer engagement.</p>
+          <div class="detail-list">
+            <div>– Built POS dashboard</div>
+            <div>– Integrated LINE CRM</div>
+            <div>– Real-time tracking</div>
+          </div>
+          <div class="detail-tech">Vue • Node.js • MongoDB</div>
+        </div>
+      </div>
+
+      <div class="work-card reveal" onclick="toggleDetail(this)">
+        <div class="work-title">Order<br>Inventory<br>System</div>
+        <div class="work-meta">Backend / Business Logic</div>
+
+        <div class="work-detail">
+          <p class="detail-desc">Backend system for order and inventory management.</p>
+          <div class="detail-list">
+            <div>– Implemented stock logic</div>
+            <div>– Built batch processes</div>
+            <div>– Improved data reliability</div>
+          </div>
+          <div class="detail-tech">Node.js • MongoDB • REST API</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ABOUT -->
+    <div id="about" class="about reveal">
+      <p>
+        I build systems that are not only technically sound —
+        but also meaningful to the business.
+      </p>
+    </div>
+
+    <!-- TECH -->
+    <div class="tech reveal">
+      TypeScript • Node.js • Vue • Next.js • MongoDB • AWS • REST API • CI/CD
+    </div>
+
+    <!-- CONTACT -->
+    <div id="contact" class="contact reveal">
+      <h2>Let’s build something meaningful</h2>
+      <p><a style="text-decoration: inherit;color: inherit;" href="mailto:mayzmallika@gmail.com" />mayzmallika@gmail.com
+      </p>
+      <p><a style="text-decoration: inherit;color: inherit;"
+          href="https://www.linkedin.com/in/mayzmallika/" />linkedin.com/in/mayzmallika</p>
+    </div>
+
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-
   <script>
-    const faders = document.querySelectorAll('.fade-in');
+    const reveals = document.querySelectorAll('.reveal');
 
-    const appearOptions = {
-      threshold: 0.1,
-      rootMargin: "0px 0px -20px 0px"
-    };
-
-    const appearOnScroll = new IntersectionObserver(function (entries, observer) {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("show");
-        observer.unobserve(entry.target);
+    function revealOnScroll() {
+      const windowHeight = window.innerHeight;
+      reveals.forEach(el => {
+        if (el.getBoundingClientRect().top < windowHeight - 100) {
+          el.classList.add('active');
+        }
       });
-    }, appearOptions);
+    }
 
-    faders.forEach(fader => {
-      appearOnScroll.observe(fader);
-    });
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+
+    /* EXPAND + AUTO SCROLL */
+    function toggleDetail(card) {
+      document.querySelectorAll('.work-card').forEach(el => {
+        if (el !== card) el.classList.remove('active-expand');
+      });
+
+      card.classList.toggle('active-expand');
+
+      card.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
   </script>
+
 </body>
 
 </html>
